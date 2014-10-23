@@ -1,5 +1,5 @@
 <h2>Shell Name Here!</h2>
 
-Contributors:
-Damien Robinson A00336676
-Matthew Smith   A00354612
+<h3>Authors:</h3><br>
+Damien Robinson A00336676<br>
+Matthew Smith   A00354612<br>
