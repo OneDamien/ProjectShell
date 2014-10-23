@@ -3,3 +3,5 @@
 <h3>Authors:</h3>
 Damien Robinson<br>
 Matthew Smith<br>
+Dhuha Al-Amiri
+
