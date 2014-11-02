@@ -11,7 +11,18 @@ Displays the welcome message, then the prompt, then exits
 #include <unistd.h>
 #include <sys/wait.h>
 
-int main (int argc, char *argv[]) {
+//Helper functions
+char* readCommandLine() {
+    char* cmdLine;
+    cmdLine = "test";
+    return cmdLine;
+}
+
+void parse(char* cmdLine) {
+
+}
+
+int main (void) {
 
     //print a welcome message (under construction)
     printf("====================================================\n");
@@ -20,22 +31,30 @@ int main (int argc, char *argv[]) {
 
     char shellName[14] = "MysteryShell$ ";
 
+    //main loop
     while (1) {
+        char *cmdLine;
 
         // display a prompt
         printf(shellName);
 
         //read in the command line
+        cmdLine = readCommandLine();
+
+        //**record command in history list here**
 
         //parse command line
+        parse(cmdLine);
 
-        //check for exit
+        //find the full pathname for the file
+
+        // create process to execute command
+
+        //parent waits until child finishes executing command
         exit(0);
-
-        //if no exit, execute command(s)
-
         }   
 
+    printf("\n");
     return 0;
 
 }
