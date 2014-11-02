@@ -13,29 +13,29 @@ Displays the welcome message, then the prompt, then exits
 
 int main (int argc, char *argv[]) {
 
-//print a welcome message (under construction)
-printf("====================================================\n");
-printf("\tYou are now running MysteryShell!\n");
-printf("====================================================\n\n");
+    //print a welcome message (under construction)
+    printf("====================================================\n");
+    printf("\tYou are now running MysteryShell!\n");
+    printf("====================================================\n\n");
 
-char shellName[14] = "MysteryShell$ ";
+    char shellName[14] = "MysteryShell$ ";
 
-while (1) {
+    while (1) {
 
-// display a prompt
-printf(shellName);
+        // display a prompt
+        printf(shellName);
 
-//read in the command line
+        //read in the command line
 
-//parse command line
+        //parse command line
 
-//check for exit
-exit(0);
+        //check for exit
+        exit(0);
 
-//if no exit, execute command(s)
+        //if no exit, execute command(s)
 
-}
+        }   
 
-return 0;
+    return 0;
 
 }
