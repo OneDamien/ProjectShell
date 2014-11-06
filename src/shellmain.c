@@ -11,6 +11,7 @@ allows user to type in a command and reads it, then exits
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <ctype.h>
 #define BUFFER_SIZE 1200
 #define ARRAY_SIZE 100
 
