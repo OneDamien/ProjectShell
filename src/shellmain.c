@@ -3,8 +3,11 @@
 Basic core of the the shell
 
 Status:
-Displays the welcome message, then the prompt,
-allows user to type in a command and reads it, then exits
+Displays the welcome message,
+then the prompt,
+allows user to type in a command and reads it,
+parses the command into an array of args,
+exits on the exit command
 */
 
 #include <stdio.h>
@@ -12,6 +15,7 @@ allows user to type in a command and reads it, then exits
 #include <unistd.h>
 #include <sys/wait.h>
 #include <ctype.h>
+#include <string.h>
 #define BUFFER_SIZE 1200
 #define ARRAY_SIZE 100
 
@@ -40,6 +44,7 @@ int main (void) {
     //print a welcome message (under construction)
     printf("====================================================\n");
     printf("\tYou are now running MysteryShell!\n");
+    printf("\tType \"exit\" to quit.\n");
     printf("====================================================\n\n");
 
     //main loop
@@ -54,13 +59,17 @@ int main (void) {
 
         //parse command line
         parse(input, args);
-  
+
+        //exit if "exit" is typed in as command
+        if(strcmp(args[0], "exit") == 0)
+            exit(0);
+        
         //find the full pathname for the file
 
         // create process - execute command
+        
 
         //parent waits until child finishes executing command
-        exit(0);
         }   
 
     printf("\n");
