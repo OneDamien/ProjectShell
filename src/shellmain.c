@@ -7,6 +7,8 @@ Displays the welcome message,
 then the prompt,
 allows user to type in a command and reads it,
 parses the command into an array of args,
+forks a child and calls execvp and passes it
+the arguements which it attempts to compute,
 exits on the exit command
 */
 
@@ -40,6 +42,7 @@ int main (void) {
 
     char input[BUFFER_SIZE];
     char *args[ARRAY_SIZE];
+    pid_t pid;
 
     //print a welcome message (under construction)
     printf("====================================================\n");
@@ -67,11 +70,16 @@ int main (void) {
         //find the full pathname for the file
 
         // create process - execute command
-        
-
-        //parent waits until child finishes executing command
-        }   
-
+        pid = fork();  
+        if (pid)
+            pid = wait(NULL); //parent waits for child
+        else
+        {
+            if(execvp(args[0],args))
+                exit(1);
+        }
+      
+    }
     printf("\n");
     return 0;
 
