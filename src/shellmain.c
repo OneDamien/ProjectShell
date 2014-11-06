@@ -16,11 +16,25 @@ allows user to type in a command and reads it, then exits
 
 
 //Helper functions
-void parse() {
+void parse(char *input, char** args) {
+   
+        while(*input != '\0') //while the input line is not empty
+        {
+            while(isspace(*input)) //take care of whitespace
+                *input++ = '\0';
+            *args++ = input;    //arg position
+            while(!isspace(*input) && *input != '\0')
+                input++;    //move to next arg
+        }
 
+        *args = (char *) '\0';  //end of command arguements
+        
 }
 
 int main (void) {
+
+    char input[BUFFER_SIZE];
+    char *args[ARRAY_SIZE];
 
     //print a welcome message (under construction)
     printf("====================================================\n");
@@ -29,21 +43,17 @@ int main (void) {
 
     //main loop
     while (1) {
-        char input[BUFFER_SIZE];
-        char *args[ARRAY_SIZE];
-
         // display a prompt
         printf("MysteryShell$ ");
 
         //read in the command line
         fgets(input, BUFFER_SIZE, stdin);
-        printf(input); //test that line is read properly
 
         //**record command in history list here**
 
         //parse command line
-        parse();
-
+        parse(input, args);
+  
         //find the full pathname for the file
 
         // create process - execute command
