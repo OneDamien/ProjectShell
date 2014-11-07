@@ -38,6 +38,34 @@ void parse(char *input, char** args) {
         
 }
 
+void getInput(char *input){
+	char inputChar;
+	while(inputChar!='\n'){
+		if(inputChar==0) // Special Character
+		{
+			/*
+			if(inputChar==ARROW_UP)
+				Display History (Line++)
+			else(inputChar==ARROW_DOWN)
+				Display History (Line--)
+			*/
+		}
+		else
+		{
+			strcat(input, &inputChar);
+		}
+	}
+}
+
+void recordHistory(char *input){
+	FILE * pHistory = fopen("shellhistory.txt", "a");
+	if(pHistory == NULL)
+		printf("Unable to open history");
+	else
+		//fprintf(pHistory, input);
+	fclose(pHistory);
+}
+
 int main (void) {
 
     char input[BUFFER_SIZE];
@@ -56,10 +84,10 @@ int main (void) {
         printf("MysteryShell$ ");
 
         //read in the command line
-        fgets(input, BUFFER_SIZE, stdin);
-
+        //fgets(input, BUFFER_SIZE, stdin);
+	getInput(input);
         //**record command in history list here**
-
+	recordHistory(input);
         //parse command line
         parse(input, args);
 
