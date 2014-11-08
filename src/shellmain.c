@@ -84,10 +84,13 @@ int main (void) {
         printf("MysteryShell$ ");
 
         //read in the command line
-        //fgets(input, BUFFER_SIZE, stdin);
-	getInput(input);
+        fgets(input, BUFFER_SIZE, stdin);
+
+	    //getInput(input);
+        
         //**record command in history list here**
-	recordHistory(input);
+	    recordHistory(input);
+        
         //parse command line
         parse(input, args);
 
