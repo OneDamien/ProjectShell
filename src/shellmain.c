@@ -13,6 +13,7 @@ exits on the exit command
 */
 
 #include <stdio.h>
+#include "conio.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -39,11 +40,13 @@ void parse(char *input, char** args) {
 }
 
 void getInput(char *input){
-	char inputChar;
+	int i = 0;
+	char inputChar=getche();
 	while(inputChar!='\n'){
 		if(inputChar==0) // Special Character
 		{
 			/*
+			inputChar=getch();
 			if(inputChar==ARROW_UP)
 				Display History (Line++)
 			else(inputChar==ARROW_DOWN)
@@ -52,8 +55,11 @@ void getInput(char *input){
 		}
 		else
 		{
-			strcat(input, &inputChar);
+			input[i]=inputChar;
+			i++;
+			inputChar=getche();
 		}
+	input[i]='\n';
 	}
 }
 
@@ -62,7 +68,7 @@ void recordHistory(char *input){
 	if(pHistory == NULL)
 		printf("Unable to open history");
 	else
-		//fprintf(pHistory, input);
+		fprintf(pHistory, input);
 	fclose(pHistory);
 }
 
@@ -71,18 +77,17 @@ int main (void) {
     char input[BUFFER_SIZE];
     char *args[ARRAY_SIZE];
     pid_t pid;
-
+    //Clear Screen
+    system("clear");
     //print a welcome message (under construction)
     printf("====================================================\n");
     printf("\tYou are now running MysteryShell!\n");
     printf("\tType \"exit\" to quit.\n");
     printf("====================================================\n\n");
-
     //main loop
     while (1) {
         // display a prompt
         printf("MysteryShell$ ");
-
         //read in the command line
         //fgets(input, BUFFER_SIZE, stdin);
 	getInput(input);
@@ -90,7 +95,6 @@ int main (void) {
 	recordHistory(input);
         //parse command line
         parse(input, args);
-
         //exit if "exit" is typed in as command
         if(strcmp(args[0], "exit") == 0)
             exit(0);
