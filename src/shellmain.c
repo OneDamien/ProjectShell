@@ -59,8 +59,8 @@ void getInput(char *input){
 			i++;
 			inputChar=getche();
 		}
-	input[i]='\n';
 	}
+	input[i]='\n';
 }
 
 void recordHistory(char *input){
@@ -71,7 +71,11 @@ void recordHistory(char *input){
 		fprintf(pHistory, input);
 	fclose(pHistory);
 }
-
+/*
+void displayHistory(int line){
+	
+}
+*/
 int main (void) {
 
     char input[BUFFER_SIZE];
