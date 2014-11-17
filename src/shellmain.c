@@ -89,10 +89,13 @@ int main (void) {
         // display a prompt
         printf("MysteryShell$ ");
         //read in the command line
-        //fgets(input, BUFFER_SIZE, stdin);
-	getInput(input);
+        fgets(input, BUFFER_SIZE, stdin);
+
+	    //getInput(input);
+        
         //**record command in history list here**
-	recordHistory(input);
+	    recordHistory(input);
+        
         //parse command line
         parse(input, args);
         //exit if "exit" is typed in as command
