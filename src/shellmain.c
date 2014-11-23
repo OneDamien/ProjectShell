@@ -125,7 +125,7 @@ void recordHistory(char *input){
 	if(pHistory == NULL)
 		printf("Unable to open history");
 	else
-		fprintf(pHistory, input);
+		fprintf(pHistory, "%s",input);
 	fclose(pHistory);
 }
 /*
@@ -138,6 +138,7 @@ int main (void) {
     char input[BUFFER_SIZE];
     char *args[ARRAY_SIZE];
     pid_t pid;
+    int i;
     //Clear Screen
     system("clear");
     //print a welcome message (under construction)
