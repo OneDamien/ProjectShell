@@ -27,6 +27,8 @@ exits on the exit command
 
 static char* args[BUFFER_SIZE];
 pid_t pid;
+int argCount = 0;
+
 /*
 char getche(){
     fflush(stdout);
@@ -137,6 +139,41 @@ void displayHistory(int line){
 	
 }
 */
+
+void setupRedirect(char *args[])
+{
+  int i=0;
+
+  char *outputFileName = "\0", *inputFileName = "\0";
+  FILE *fp;
+
+  //scan for redirection characters ">" or "<"
+  for(i=0;i<=argCount-1;i++)
+    {
+      if( strcmp(args[i],">") == 0)
+	outputFileName = args[i+1];
+
+
+      if( strcmp(args[i],"<") == 0)
+	inputFileName = args[i+1];
+           
+    }
+
+    
+  if( outputFileName != '\0')
+    {
+      fp = fopen(outputFileName, "w+");
+      dup2(fileno(fp), 1);
+    }
+    
+  if( inputFileName != '\0')
+    {
+      fp = fopen(inputFileName, "r");
+      dup2(fileno(fp), 0);
+    }
+
+}
+
 
 static int run(char *cmd, int input, int first, int last);
 static int command(int input, int first, int last);
