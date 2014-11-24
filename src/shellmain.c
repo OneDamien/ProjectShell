@@ -134,11 +134,7 @@ void recordHistory(char *input){
 	fclose(pHistory);
 }
 */
-/*
-void displayHistory(int line){
-	
-}
-*/
+
 //redirection code
 void setupRedirct(char *args[])
 {
