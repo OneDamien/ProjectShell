@@ -52,19 +52,26 @@ char getche(){
  }
 */
 
-//Helper functions
 void parse(char *input, char** args) {
+    
+    argCount = 0 ;
    
-        while(*input != '\0') //while the input line is not empty
+    while(*input != '\0') //while the input line is not empty
         {
             while(isspace(*input)) //take care of whitespace
                 *input++ = '\0';
             *args++ = input;    //arg position
+            
+            argCount++;
+
             while(!isspace(*input) && *input != '\0')
                 input++;    //move to next arg
         }
 
-        *args = (char *) '\0';  //end of command arguements
+    *args = (char *) '\0';  //end of command arguements
+    
+    //subtract one to get ctual count.
+    argCount--;  
 }
 
 void tabComplete(char *input){
