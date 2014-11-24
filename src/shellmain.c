@@ -24,14 +24,10 @@ exits on the exit command
 #include <readline/history.h>
 #define BUFFER_SIZE 1200
 #define ARRAY_SIZE 100
-<<<<<<< HEAD
-/*
-=======
 
 static char* args[BUFFER_SIZE];
 pid_t pid;
-
->>>>>>> 2120013932c07f201f365738fef31e32289b17bd
+/*
 char getche(){
     fflush(stdout);
     if(tcgetattr(0, &old)<0)
@@ -126,6 +122,7 @@ void getInput(char *input){
 	input[i]='\n';
 }
 */
+/*
 void recordHistory(char *input){
 	FILE * pHistory = fopen("shellhistory.txt", "a");
 	if(pHistory == NULL)
@@ -134,7 +131,7 @@ void recordHistory(char *input){
 		fprintf(pHistory, "%s",input);
 	fclose(pHistory);
 }
-
+*/
 /*
 void displayHistory(int line){
 	
@@ -146,15 +143,11 @@ static int command(int input, int first, int last);
 static int n = 0; //calls to 'command'
 
 int main (void) {
-
-<<<<<<< HEAD
     char *input;
     char *args[ARRAY_SIZE];
     pid_t pid;
-=======
-    char input[BUFFER_SIZE];
+   // char input[BUFFER_SIZE];
     //char *args[ARRAY_SIZE];
->>>>>>> 2120013932c07f201f365738fef31e32289b17bd
     int i;
     //Clear Screen
     system("clear");
@@ -164,7 +157,6 @@ int main (void) {
     printf("\tType \"exit\" to quit.\n");
     printf("====================================================\n\n");
     //main loop
-<<<<<<< HEAD
     rl_bind_key('\t', rl_complete);
  
     while(1){
@@ -180,25 +172,6 @@ int main (void) {
         // Do stuff...
  	//parse command line
 	parse(input, args);
-=======
-    while (1) {
-    	for(i=0; i<BUFFER_SIZE;i++)
-    	input[i]= '\0';
-        // display a prompt
-        printf("MysteryShell$ ");
-        //read in the command line
-        //fgets(input, BUFFER_SIZE, stdin);
-
-   	getInput(input);
-        
-        //**record command in history list here**
-	    recordHistory(input);
-        
-        
-        //parse command line
-        parse(input, args);
-        
->>>>>>> 2120013932c07f201f365738fef31e32289b17bd
         //exit if "exit" is typed in as command
         if(strcmp(input, "exit") == 0)
             exit(0);
@@ -222,8 +195,6 @@ int main (void) {
         }
         st = run(cmd, input, first, 1);
         
-        
-
         /*
         pid = fork();  
         if (pid)
@@ -233,16 +204,9 @@ int main (void) {
             if(execvp(args[0],args))
                 exit(1);
         }
-<<<<<<< HEAD
+	*/
 	free(input);
-      
-    
 	}
-=======
-        */
-
-    }
->>>>>>> 2120013932c07f201f365738fef31e32289b17bd
     printf("\n");
     return 0;
 
