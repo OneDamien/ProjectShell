@@ -20,12 +20,12 @@ exits on the exit command
 #include <string.h>
 #include <dirent.h>
 #include <termios.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #define BUFFER_SIZE 1200
 #define ARRAY_SIZE 100
-
+/*
 char getche(){
-    char buf=0;
-    struct termios old={0};
     fflush(stdout);
     if(tcgetattr(0, &old)<0)
         perror("tcsetattr()");
@@ -45,6 +45,7 @@ char getche(){
     printf("%c",buf);
     return buf;
  }
+*/
 
 //Helper functions
 void parse(char *input, char** args) {
@@ -89,20 +90,20 @@ void tabComplete(char *input){
             closedir(d);
          }      
 }
-
+/*
 void getInput(char *input){
 	int i = 0;
-	char inputChar=getche();
+	//char inputChar=getche();
 	while(inputChar!='\n'){
 		if(inputChar==0) // Special Character
 		{
-			/*
+			
 			inputChar=getch();
 			if(inputChar==ARROW_UP)
 				Display History (Line++)
 			else(inputChar==ARROW_DOWN)
 				Display History (Line--)
-			*/
+			
 		}
 		else
 		{
@@ -118,7 +119,7 @@ void getInput(char *input){
 	}
 	input[i]='\n';
 }
-
+*/
 void recordHistory(char *input){
 	FILE * pHistory = fopen("shellhistory.txt", "a");
 	if(pHistory == NULL)
@@ -134,7 +135,7 @@ void displayHistory(int line){
 */
 int main (void) {
 
-    char input[BUFFER_SIZE];
+    char *input;
     char *args[ARRAY_SIZE];
     pid_t pid;
     int i;
@@ -146,21 +147,21 @@ int main (void) {
     printf("\tType \"exit\" to quit.\n");
     printf("====================================================\n\n");
     //main loop
-    while (1) {
-    	for(i=0; i<BUFFER_SIZE;i++)
-    	input[i]= '\0';
-        // display a prompt
-        printf("MysteryShell$ ");
-        //read in the command line
-        //fgets(input, BUFFER_SIZE, stdin);
-
-	getInput(input);
-        
-        //**record command in history list here**
-	    recordHistory(input);
-        
-        //parse command line
-        parse(input, args);
+    rl_bind_key('\t', rl_complete);
+ 
+    while(1){
+        input = readline("MysteryShell$ ");
+ 
+        // Check for EOF.
+        if (!input)
+            break;
+ 
+        // Add input to history.
+        add_history(input);
+ 
+        // Do stuff...
+ 	//parse command line
+	parse(input, args);
         //exit if "exit" is typed in as command
         if(strcmp(input, "exit") == 0)
             exit(0);
@@ -176,8 +177,10 @@ int main (void) {
             if(execvp(args[0],args))
                 exit(1);
         }
+	free(input);
       
-    }
+    
+	}
     printf("\n");
     return 0;
 
