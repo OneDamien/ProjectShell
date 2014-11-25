@@ -131,16 +131,6 @@ void getInput(char *input){
 	input[i]='\n';
 }
 */
-/*
-void recordHistory(char *input){
-	FILE * pHistory = fopen("shellhistory.txt", "a");
-	if(pHistory == NULL)
-		printf("Unable to open history");
-	else
-		fprintf(pHistory, "%s",input);
-	fclose(pHistory);
-}
-*/
 
 //redirection code
 void setupRedirct(char *args[])
