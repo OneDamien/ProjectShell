@@ -189,8 +189,8 @@ void setupRedirct(char *args[])
 
 }
 
-static int run(char *cmd, int input, int first, int last);
-static int command(int input, int first, int last);
+static int run(char *cmd, int st, int first, int last);
+static int command(int st, int first, int last);
 static int n = 0; //calls to 'command'
 
 int main (void) {
@@ -244,7 +244,7 @@ int main (void) {
             next = strchr(cmd, '|');
             first = 0;
         }
-        st = run(cmd, input, first, 1);
+        st = run(cmd, st, first, 1);
         pid = fork();  
         if (pid)
             pid = wait(NULL); //parent waits for child
@@ -265,18 +265,18 @@ int main (void) {
 }
 
 
-static int run(char *cmd, int input, int first, int last)
+static int run(char *cmd, int st, int first, int last)
 {
     if(args[0] != NULL)
     {
         n += 1;
-        return command(input, first, last);
+        return command(st, first, last);
     }
     return 0;
 }
 
 
-static int command(int input, int first, int last)
+static int command(int st, int first, int last)
 {
     int pipeline[2];
     pipe(pipeline);
@@ -284,21 +284,21 @@ static int command(int input, int first, int last)
 
     if(pid == 0)
     {
-        if(first == 1 && last == 0 && input == 0)
+        if(first == 1 && last == 0 && st == 0)
             dup2( pipeline[1], STDOUT_FILENO );
-        else if(first == 0 && last == 0 && input != 0)
+        else if(first == 0 && last == 0 && st != 0)
         {
-            dup2(input, STDIN_FILENO);
+            dup2(st, STDIN_FILENO);
             dup2(pipeline[1], STDOUT_FILENO);
         }
         else
-            dup2(input, STDIN_FILENO);
+            dup2(st, STDIN_FILENO);
         if (execvp(args[0], args) == -1)
             exit(1);  //child fails
     }
 
-    if(input != 0)
-        close(input);
+    if(st != 0)
+        close(st);
 
     close(pipeline[0]);
     if(last == 1)
