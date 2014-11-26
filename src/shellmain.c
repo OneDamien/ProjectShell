@@ -77,6 +77,8 @@ void parse(char *input, char** args) {
 void tabComplete(char *input){
 	char *temp = strchr (input, ' ');
         char *f;
+        int i,x=0;
+        char y[50][BUFFER_SIZE];
         if (temp!=NULL)
         {
              char *s = strrchr (input, ' ');
@@ -94,12 +96,26 @@ void tabComplete(char *input){
     	    {
       		if(strncmp(f, dir->d_name, wordlength)==0)
 		{
-		    printf("%s", dir->d_name + wordlength);
-		    strcat(input,dir->d_name + wordlength);
+		    strcpy(y[x],dir->d_name);
+		    x++;
 	    	}
 	    }
-            closedir(d);
-         }      
+	    if(x==1)
+	    {
+	    	printf("%s", y[0] + wordlength);
+	    	strcat(input,y[0] + wordlength);
+	    }
+	    else if(x>1)
+	    {
+	    	printf("\nError: Multiple files\");
+	    	for(i=0; i<=x; i++)
+	    	{
+	    		printf("%s      ", y[i]);
+	    	}
+	    	printf("\nMysteryShell$ %s", input);
+	    }
+  	}
+  	closedir(d);      
 }
 /*
 void getInput(char *input){
