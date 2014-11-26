@@ -107,7 +107,7 @@ void tabComplete(char *input){
 	    }
 	    else if(x>1)
 	    {
-	    	printf("\nError: Multiple files\");
+	    	printf("\nError: Multiple files");
 	    	for(i=0; i<=x; i++)
 	    	{
 	    		printf("%s      ", y[i]);
