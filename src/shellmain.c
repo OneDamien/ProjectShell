@@ -202,6 +202,9 @@ static int n = 0; //calls to 'command'
 int main (void) {
     char *input;
     char *args[ARRAY_SIZE];
+    char add[50];
+    char commit[200];
+    char push[50];
     pid_t pid;
    // char input[BUFFER_SIZE];
     //char *args[ARRAY_SIZE];
@@ -229,10 +232,22 @@ int main (void) {
         // Do stuff...
  	//parse command line
 	parse(input, args);
+	strcpy(add,"git add ");
+	strcpy(commit, "git commit -m \"Quick Commit Changes\"");
+	strcpy(push, "git push");
+	strcat(add, args[1]);
+	
         //exit if "exit" is typed in as command
         if(strcmp(input, "exit") == 0)
             exit(0);
-
+	if(strcmp(args[0], "cd") == 0)
+	    chdir(args[1]);
+	if(strcmp(args[0], "acp") == 0)
+	{
+	    system(add);
+	    system(commit);
+	    system(push);
+	}
         //find the full pathname for the file
 
         // create process - execute command
